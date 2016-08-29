@@ -38,21 +38,21 @@ public class LoginController {
 	@RequestMapping(value = { "/dologin", "/dologin;JSESSIONID={sessionId}",
 			"/dosignon/", "/dosignon/;JSESSIONID={sessionId}" }, method = { RequestMethod.POST })
 	public String login(
-			@RequestParam(value = "username", required = false) String userName,
+			@RequestParam(value = "account", required = false) String account,
 			@RequestParam(value = "password", required = false) String password,
 			Model model, HttpServletRequest req) {
 
-		System.out.println(userName);
+		System.out.println(account);
 		System.out.println(password);
 
-		User user = userService.findByAccount(userName);
+		User user = userService.findByAccount(account);
 		// new SimpleAuthenticationInfo(new LoginInfo(user.getId(),
 		// (String)SecurityUtils.getSubject().getSession().getId(),
 		// user.getAccount(), user.getPoolId().longValue()), user.getPassword(),
 		// ByteSource.Util.bytes(salt), getName());
 		if (user != null && password.equals(user.getPassword())) {
-			req.getSession().setAttribute("user", user);
-			return "login";
+			req.getSession().setAttribute("userCommon", user);
+			return "redirect:/manage";
 		} else {
 			return "user/login";
 		}

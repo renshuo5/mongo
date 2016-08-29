@@ -17,6 +17,8 @@ import com.rensframework.entity.User;
 import com.rensframework.model.AjaxResult;
 import com.rensframework.user.service.UserService;
 
+import freemarker.template.utility.NullArgumentException;
+
 @Controller
 @RequestMapping("/manage/user")
 public class UserController {
@@ -46,7 +48,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	@ResponseBody
+//	@ResponseBody
 	public Object create(User user,Model model){
 		AjaxResult ajax=new AjaxResult();
 		User newUser = userService.creative(user);
@@ -54,14 +56,18 @@ public class UserController {
 			ajax.setStatus(300);
 			ajax.setMessage("保存失败");
 		}
-		return ajax;
+//		return ajax;
+		return "redirect:/index";
 	}
 	
-	@RequestMapping(value="/addfriends",method=RequestMethod.GET)
+	@RequestMapping(value="/addfriend",method=RequestMethod.GET)
 	@ResponseBody
 	public Object addFriends(@RequestParam("id")User user,Model model){
 		AjaxResult ajax=new AjaxResult();
 		User loginInfo =(User)model.asMap().get(CommonController.ATTR_LOGIN_USER);
+		if(loginInfo==null){
+			throw new NullArgumentException("用户为空");
+		}
 		Set<User> set = loginInfo.getFriends();
 		set.add(user);
 		User newUser = userService.creative(user);

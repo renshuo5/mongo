@@ -23,7 +23,7 @@ public class CommonController {
 
 	@ModelAttribute(ATTR_LOGIN_USER)
 	public User loginUser(HttpServletRequest req) {
-		User user=(User)req.getSession().getAttribute("user");
+		User user=(User)req.getSession().getAttribute("userCommon");
 		return user;
 	}
 

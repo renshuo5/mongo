@@ -6,9 +6,10 @@
 </head>
 <body>
 用户列表
-<a href="${rc.contextPath}/manage/user/form">新增用户</a>
+<a href="${rc.contextPath}/manage/user/form">新增用户</a></br>
 <#list list as li>
 编码:${li.id},姓名:${li.name},年龄:${li.account} &nbsp; <a href="${rc.contextPath}/manage/user/addfriend?id=${li.id}">添加好友</a>
+<a href="${rc.contextPath}/manage/message/form?id=${li.id}">聊天</a></br>
 
 </#list>
 </body>

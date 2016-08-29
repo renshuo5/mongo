@@ -57,12 +57,12 @@ public class UserController {
 			ajax.setMessage("保存失败");
 		}
 //		return ajax;
-		return "redirect:/index";
+		return "redirect:/user/index";
 	}
 	
 	@RequestMapping(value="/addfriend",method=RequestMethod.GET)
 	@ResponseBody
-	public Object addFriends(@RequestParam("id")User user,Model model){
+	public Object addFriends(@RequestParam(value="id",required=false)User user,Model model){
 		AjaxResult ajax=new AjaxResult();
 		User loginInfo =(User)model.asMap().get(CommonController.ATTR_LOGIN_USER);
 		if(loginInfo==null){

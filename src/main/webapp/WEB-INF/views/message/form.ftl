@@ -7,8 +7,8 @@
 <body>
 
 <form method="post" action="${rc.contextPath}/manage/message">
-<input type="text" name="fromId" value="${fromId}"/>
-<input type="text" name="toId" value="${toId}"/>
+<input type="hidden" name="fromId" value="${fromId}"/>
+<input type="hidden" name="toId" value="${toId}"/>
 	<table>
 		<tr>
 			<td>消息</td>

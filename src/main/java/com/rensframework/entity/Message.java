@@ -5,6 +5,7 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -27,6 +28,7 @@ public class Message {
 	
 	private String content;
 	
+	@CreatedDate
 	private Date sendTime;
 
 }

@@ -49,7 +49,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-//	@ResponseBody
+	@ResponseBody
 	public Object create(User user,Model model){
 		AjaxResult ajax=new AjaxResult();
 		User newUser = userService.creative(user);
@@ -57,8 +57,8 @@ public class UserController {
 			ajax.setStatus(300);
 			ajax.setMessage("保存失败");
 		}
-//		return ajax;
-		return "redirect:/user/index";
+		return ajax;
+//		return "redirect:/user/index";
 	}
 	
 	@RequestMapping(value="/addfriend",method=RequestMethod.GET)
@@ -91,6 +91,7 @@ public class UserController {
 		User loginInfo =(User)model.asMap().get(CommonController.ATTR_LOGIN_USER);
 		Set<User> set = loginInfo.getFriends();
 		if(set==null){
+			set=new HashSet<User>();
 		}
 		List<User> list = new ArrayList<User>(set);
 		model.addAttribute("list", list);

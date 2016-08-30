@@ -6,12 +6,15 @@
 </head>
 <body>
 消息列表</br>
-<#list list as li>
-编码:${li.id},姓名:${li.name},年龄:${li.account} &nbsp; 
-<a href="${rc.contextPath}/manage/message/form?id=${li.id}">修改</a>
-<a href="${rc.contextPath}/manage/user/addfriend?id=${li.id}">添加好友</a>
-<a href="${rc.contextPath}/manage/message/form?id=${li.id}">聊天</a></br>
+已发送消息：<br/>
+<#list fromList as li>
+编码:${li.id},发送者姓名:${li.fromName},接收者:${li.toName} , 消息:${li.content},时间：${li.sendTime}; <br/>
 
 </#list>
+已接收消息：<br/>
+<#list toList as li>
+编码:${li.id},发送者姓名:${li.fromName},接收者:${li.toName} , 消息:${li.content},时间：${li.sendTime}; <br/>
+</#list>
+
 </body>
 </html>

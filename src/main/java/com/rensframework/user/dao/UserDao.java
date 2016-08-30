@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.rensframework.entity.User;
 
 @Repository
-public interface UserDao extends MongoRepository<User, Long> {
+public interface UserDao extends MongoRepository<User, String> {
 
 	@Query("{ name: ?0 }")
 	public List<User> findByName(String userName);

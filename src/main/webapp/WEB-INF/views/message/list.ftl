@@ -5,12 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-用户列表</br>
-<a href="${rc.contextPath}/manage/user/form">新增用户</a></br>
-<a href="${rc.contextPath}/manage/user/getfriend">查看好友</a></br>
+消息列表</br>
 <#list list as li>
 编码:${li.id},姓名:${li.name},年龄:${li.account} &nbsp; 
-<a href="${rc.contextPath}/manage/user/form?id=${li.id}">修改</a>
+<a href="${rc.contextPath}/manage/message/form?id=${li.id}">修改</a>
 <a href="${rc.contextPath}/manage/user/addfriend?id=${li.id}">添加好友</a>
 <a href="${rc.contextPath}/manage/message/form?id=${li.id}">聊天</a></br>
 

@@ -25,11 +25,17 @@ public class UserService {
 		return userDao.insert(user);
 	}
 	
-	public void remove(Long userId){
+	public void remove(String userId){
 		userDao.delete(userId);
 	}
 	public User findByAccount(String account) {
 		return userDao.findByAccount(account);
+	}
+	public User findOne(String id) {
+		return userDao.findOne(id);
+	}
+	public User update(User user) {
+		return userDao.save(user);
 	}
 	
 }

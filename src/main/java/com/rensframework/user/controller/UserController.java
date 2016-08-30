@@ -1,10 +1,11 @@
 package com.rensframework.user.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,6 @@ import com.rensframework.controller.CommonController;
 import com.rensframework.entity.User;
 import com.rensframework.model.AjaxResult;
 import com.rensframework.user.service.UserService;
-
-import freemarker.template.utility.NullArgumentException;
 
 @Controller
 @RequestMapping("/manage/user")
@@ -41,9 +40,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/form",method=RequestMethod.GET)
-	public String form(User user,Model model){
-		
-		
+	public String form(@RequestParam(value="id",required=false)User user,Model model){
+		if(user==null){
+			user=new User();
+		}
+		model.addAttribute("entity", user);
 		return "user/form";
 	}
 	
@@ -66,11 +67,17 @@ public class UserController {
 		AjaxResult ajax=new AjaxResult();
 		User loginInfo =(User)model.asMap().get(CommonController.ATTR_LOGIN_USER);
 		if(loginInfo==null){
-			throw new NullArgumentException("用户为空");
+			ajax.setStatus(300);
+			ajax.setMessage("用户为空");
+			return ajax;
 		}
 		Set<User> set = loginInfo.getFriends();
+		if(set==null){
+			set = new HashSet<User>();
+		}
 		set.add(user);
-		User newUser = userService.creative(user);
+		loginInfo.setFriends(set);
+		User newUser = userService.update(loginInfo);
 		if(newUser==null){
 			ajax.setStatus(300);
 			ajax.setMessage("保存失败");
@@ -78,5 +85,15 @@ public class UserController {
 		
 		return ajax;
 	}
-	
+
+	@RequestMapping(value="/getfriend",method=RequestMethod.GET)
+	public String getFriends(Model model){
+		User loginInfo =(User)model.asMap().get(CommonController.ATTR_LOGIN_USER);
+		Set<User> set = loginInfo.getFriends();
+		if(set==null){
+		}
+		List<User> list = new ArrayList<User>(set);
+		model.addAttribute("list", list);
+		return "user/friendsList";
+	}
 }

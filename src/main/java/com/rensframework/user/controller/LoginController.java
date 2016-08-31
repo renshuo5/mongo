@@ -19,11 +19,6 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/manage")
-	public String manage(HttpServletRequest request, Model model) {
-		return "manage/index";
-	}
-
 	@RequestMapping(value = { "/login", "/login;JSESSIONID={sessionId}",
 			"/signon", "/signon;JSESSIONID={sessionId}" })
 	public String redirectLogin(HttpServletRequest request, Model model) {

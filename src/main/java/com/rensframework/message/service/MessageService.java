@@ -25,5 +25,6 @@ public class MessageService {
 	public Message create(Message mess) {
 		return messageDao.insert(mess);
 	}
+	
 
 }
